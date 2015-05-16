@@ -1,0 +1,15 @@
+h1 {
+    color:#6910EE;
+    padding: 30px;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+
+.prodList li {
+    display: inline-block;
+}
+
+.prodList img {
+    width: 400px; /* you can use % */
+    height: 400px;
+}

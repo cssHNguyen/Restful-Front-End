@@ -30,58 +30,43 @@
     // Closing
     curl_close($ch);
 
-    //Parse that mess into a PHP variable
-    $myResult = json_decode($result);
-    /*
-    echo $myResult->{"2"}->{"entity_id"};
-    echo "\n";
-    echo $myResult->{"2"}->{"sku"};
-    echo "\n";
-    echo $myResult->{"2"}->{"short_description"};
-    echo "\n";
-    */
-    //echo
-    //echo $result;
-    //echo json_encode($myResult, JSON_PRETTY_PRINT);
-
+    //sends json to HTML
     header("Content-type: text/javascript");
+    //Data for iteration
+    $pCount = 0;
+    $productList = array();
+    //Defines what a product is
+    class myProduct {
+        public $entity_id = 0;
+        public $sku = 0;
+        public $short_description = "";
+        public $description = "";
+        public $name = "";
+        public $image_url = "";
+    }
+    //first product
+    $tempPro = new myProduct();
 
+    //iterates through all json objects to construct a more elegant JSON file
+    $jsonIterator = new RecursiveIteratorIterator(
+        new RecursiveArrayIterator(json_decode($result, TRUE)),
+        RecursiveIteratorIterator::SELF_FIRST);
 
-    //Call HTML file from within PHP
-    $myProduct = array (
-        array (
-            "entity_id"=> "2",
-            "sku"=>"PC-OIL-GP",
-            "name"=>"One Step Camellia Cleansing Oil"
-        ),
-        array (
-            "entity_id"=> "5",
-            "sku"=>"PC-OIL-GP",
-            "name"=>"5g Oil"
-        ),
-    );
+    foreach ($jsonIterator as $key => $val) {
+        if(is_array($val)) {
+            //echo "$key:\n";
+        } else {
+            if ($pCount < 6) {
+                $pCount++;
+                $tempPro->$key = $val;
+            } else {
+                $pCount = 0;
+                $tempPro = null;
+                $tempPro = new myProduct();
+                array_push($productList, $tempPro);
+            }
 
-    echo json_encode(@$myProduct);
-
-
-//$data = "<html>....";
-//exit(json_encode($data));
-
-
-
-
-
-
-
-    /*
-    $fname = "myPage.html";
-    if (file_exists($fname)) {
-        header("Location: myPage.html");
-    } else {
-        echo header("Location: myPage.html"); //or echo file not exist
-    }*/
-
-
-
-
+        }
+    }
+    echo (json_encode($productList));
 ?>
