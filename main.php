@@ -42,5 +42,17 @@
     */
     //echo
     //echo $result;
-    echo json_encode($myResult, JSON_PRETTY_PRINT);
+    //echo json_encode($myResult, JSON_PRETTY_PRINT);
+
+    //Call HTML file from within PHP
+    $fname = "myPage.html";
+    if (file_exists($fname)) {
+        header("Location: myPage.html");
+    } else {
+        echo header("Location: myPage.html"); //or echo file not exist
+    }
+
+
+
+
 ?>
