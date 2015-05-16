@@ -1,9 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <h1>Hi there</h1>
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
 </head>
 <body>
+
+<h1>Our Products</h1>
+
+
+<ul></ul>
+
+
+
+
+
+
+
+
+
+
+<script type='text/javascript'>
+    $(document).ready(function(){
+        /* call the php that has the php array which is json_encoded */
+        $.getJSON('main.php', function(data) {
+
+            /* data will hold the php array as a javascript object */
+            $.each(data, function(key, val) {
+                $('ul').append('<li id="' + key + '">' + val.entity_id + ' ' + val.sku + ' ' + val.name + '</li>');
+            });
+        });
+
+    });
+</script>
+
 
 </body>
 </html>
