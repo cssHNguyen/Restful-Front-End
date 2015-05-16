@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TATCHA.iml" filepath="$PROJECT_DIR$/.idea/TATCHA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../RestulFrontEnd/.idea/RestfulFrontEnd.iml" filepath="$PROJECT_DIR$/../RestulFrontEnd/.idea/RestfulFrontEnd.iml" />
     </modules>
   </component>
 </project>
