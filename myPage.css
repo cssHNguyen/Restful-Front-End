@@ -1,15 +1,42 @@
+* {margin: 0; padding: 0;}
+
 h1 {
     color:#6910EE;
     padding: 30px;
-    padding-left: 15px;
+    padding-left: 25px;
+    font-size: 50px;
     text-transform: uppercase;
 }
 
-.prodList li {
-    display: inline-block;
+div {
+    margin: 20px;
 }
 
-.prodList img {
-    width: 400px; /* you can use % */
-    height: 400px;
+ul {
+    list-style-type: none;
+    width: 1100px;
+}
+
+h2 {
+    font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+
+li img {
+    float: left;
+    border: 3px solid #021a40;
+    padding: 5px;
+    width:400px;
+    height:400px;
+    margin: 0 15px 0 0;
+}
+
+li p {
+
+}
+
+li {
+    float:left;
+    ;
+    padding: 10px;
+    overflow: auto;
 }

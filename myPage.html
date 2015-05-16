@@ -13,26 +13,29 @@
     <ul></ul>
 </div>
 
-
-
-
-
-
-
 <script type='text/javascript'>
+    //Variable to check loading time
+    var d = new Date();
+    var startTime = d.getTime();
     $(document).ready(function(){
         /* call the php that has the php array which is json_encoded */
         $.getJSON('main.php', function(data) {
 
             /* data will hold the php array as a javascript object */
             $.each(data, function(key, val) {
-                $('ul').append('<li id="' + key + '">'+ "<img src="+val.image_url+">"  + val.name + '</li><br>');
+                $('ul').append('<li id="' + key + '">'+
+                    '<img src="'+val.image_url+'">'+
+                    "<h2>"+val.name+"</h2>"+
+                    "<p>"+val.short_description+"</p>"+
+                    '</li><br>');
             });
         });
-
     });
-</script>
+    //Used to check the loading time
+    jQuery(window).load(function () {
+    });
 
+</script>
 
 </body>
 </html>
