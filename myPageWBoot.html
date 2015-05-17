@@ -7,37 +7,74 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--Using aJax to fetch data from PHP -->
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
+    <link href="myPageWBoot.css" rel="stylesheet"/>
 </head>
 <body>
 
 <div class="container">
     <div class="jumbotron">
-        <h1>My First Bootstrap Page</h1>
-        <p>Resize this responsive page to see the effect!</p>
+        <h1>Awesome Beauty Products</h1>
+        <p>Works perfectly for all types of skin</p>
     </div>
-    <div class="row">
+    <div class="row" id = "mRow">
+        <!--
         <div class="col-sm-4">
             <h3>Column 1</h3>
+            <img src ="test.jpg" class="img-responsive" alt="Cinque Terre" width="304" height="236">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
             <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
         </div>
-        <div class="col-sm-4">
-            <h3>Column 2</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-        </div>
-        <div class="col-sm-4">
-            <h3>Column 3</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-        </div>
-        <div class="col-sm-4">
-            <h3>Column 3</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-        </div>
+        -->
     </div>
 </div>
+
+
+<script type='text/javascript'>
+    //Variable to check loading time
+    var d = new Date();
+    var startTime = d.getTime();
+
+    var mDiv = document.getElementById("mRow");
+
+    $(document).ready(function(){
+        /* call the php that has the php array which is json_encoded */
+        $.getJSON('main.php', function(data) {
+
+            /* data will hold the php array as a javascript object */
+            $.each(data, function(key, val) {
+                mDiv.innerHTML += "<div class='col-md-4'>"+
+                "<h3>"+val.name+"</h3>"+
+                "<img src ="+val.image_url+" class='img-responsive' alt=''>"+
+                "<p>"+val.short_description+"</p>"+
+                "</div>";
+                /*
+                $('ul').append('<li id="' + key + '">'+
+                '<img src="'+val.image_url+'">'+
+                "<h2>"+val.name+"</h2>"+
+                "<p>"+val.short_description+"</p>"+
+                '</li><br>');*/
+            });
+        });
+    });
+    //Used to check the loading time
+    jQuery(window).load(function () {
+    });
+
+</script>
+<!--
+<script>
+
+    for (i = 0; i < 6; i++) {
+        mDiv.innerHTML += "<div class=\"col-sm-4\">"+
+                "<img src =\"test.jpg\" class=\"img-responsive\" alt=\"Cinque Terre\" width=\"304\" height=\"236\">";
+    }
+</script>
+-->
+
+
+
 
 </body>
 </html>

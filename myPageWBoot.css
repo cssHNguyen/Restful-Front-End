@@ -1,0 +1,18 @@
+.jumbotron h1 {
+    color:#6910EE;
+    text-transform: uppercase;
+}
+
+.jumbotron p {
+    color:#6910EE;
+    font-size: 30px;
+}
+
+.row img {
+    border: 3px solid #021a40;
+    padding: 3px;
+}
+
+.row p {
+    font-size: 18px;
+}
