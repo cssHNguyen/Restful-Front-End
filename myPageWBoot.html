@@ -10,6 +10,11 @@
     <!--Using aJax to fetch data from PHP -->
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
     <link href="myPageWBoot.css" rel="stylesheet"/>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/3-col-portfolio.css" rel="stylesheet">
 </head>
 <body>
 
@@ -35,8 +40,14 @@
     //Variable to check loading time
     var d = new Date();
     var startTime = d.getTime();
-
+    //get div to be appended to
     var mDiv = document.getElementById("mRow");
+
+    //function to send the correct data to the next
+    function pVToHTML (_pID) {
+        sessionStorage.setItem('label', _pID);
+    }
+    //sessionStorage.setItem('label', 'Hello World!')
 
     $(document).ready(function(){
         /* call the php that has the php array which is json_encoded */
@@ -45,8 +56,10 @@
             /* data will hold the php array as a javascript object */
             $.each(data, function(key, val) {
                 mDiv.innerHTML += "<div class='col-md-4'>"+
-                "<h3>"+val.name+"</h3>"+
-                "<img src ="+val.image_url+" class='img-responsive' alt=''>"+
+                "<a href = 'singleProduct.html'" + "id=" + val.name + " onClick='pVToHTML(this.id)'>"+
+                    "<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'>"+
+                    "<h3>"+val.name+"</h3>"+
+                "</a>"+
                 "<p>"+val.short_description+"</p>"+
                 "</div>";
                 /*
@@ -58,6 +71,7 @@
             });
         });
     });
+
     //Used to check the loading time
     jQuery(window).load(function () {
     });
