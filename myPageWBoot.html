@@ -24,7 +24,7 @@
         <p>Works perfectly for all types of skin</p>
     </div>
     <div class="row" id = "mRow">
-        <!--
+        <!-- will be dynamically added to
         <div class="col-sm-4">
             <h3>Column 1</h3>
             <img src ="test.jpg" class="img-responsive" alt="Cinque Terre" width="304" height="236">
@@ -40,12 +40,22 @@
     //Variable to check loading time
     var d = new Date();
     var startTime = d.getTime();
+
     //get div to be appended to
     var mDiv = document.getElementById("mRow");
 
+    //to hold the current objects
+    var myProductList = [];
+    var myProCount = 0;
+
     //function to send the correct data to the next
     function pVToHTML (_pID) {
-        sessionStorage.setItem('label', _pID);
+        sessionStorage.setItem('image_url', myProductList[_pID].image_url);
+        sessionStorage.setItem('name', myProductList[_pID].name);
+        sessionStorage.setItem('description', myProductList[_pID].description);
+
+
+        //document.write( myProductList[_pID].name);
     }
     //sessionStorage.setItem('label', 'Hello World!')
 
@@ -56,12 +66,20 @@
             /* data will hold the php array as a javascript object */
             $.each(data, function(key, val) {
                 mDiv.innerHTML += "<div class='col-md-4'>"+
-                "<a href = 'singleProduct.html'" + "id=" + val.name + " onClick='pVToHTML(this.id)'>"+
+                "<a href = 'singleProduct.html'" + "id=" + myProCount + " onClick='pVToHTML(this.id)'>"+
                     "<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'>"+
                     "<h3>"+val.name+"</h3>"+
                 "</a>"+
                 "<p>"+val.short_description+"</p>"+
                 "</div>";
+                //Sets data to locally, so we can use later
+                /*
+                myProductData.image_url = val.image_url;
+                myProductData.name = val.name;
+                myProductData.description = val.description;
+                */
+                myProductList.push ({"image_url":val.image_url, "name":val.name, "description":val.description});
+                myProCount = myProCount + 1;
                 /*
                 $('ul').append('<li id="' + key + '">'+
                 '<img src="'+val.image_url+'">'+
@@ -77,18 +95,5 @@
     });
 
 </script>
-<!--
-<script>
-
-    for (i = 0; i < 6; i++) {
-        mDiv.innerHTML += "<div class=\"col-sm-4\">"+
-                "<img src =\"test.jpg\" class=\"img-responsive\" alt=\"Cinque Terre\" width=\"304\" height=\"236\">";
-    }
-</script>
--->
-
-
-
-
 </body>
 </html>

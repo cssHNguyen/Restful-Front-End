@@ -2,14 +2,26 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <link href="singleProduct.css" rel="stylesheet"/>
 </head>
 <body>
-    <h1 id = 'mHeader'>Hi adsada adadadadadadadada</h1>
-
+    <div class = "sinProd">
+        <a href="myPageWBoot.html">
+            <h1>Back</h1>
+        </a>
+        <h2 id = "pName"></h2>
+        <img src="holder.png" id = "pImage">
+        <p id = "pDes"></p>
+    </div>
 <script>
-    var myStr = sessionStorage.getItem('label');
-    document.getElementById("mHeader").innerHTML = myStr;
+    var pName = sessionStorage.getItem('name');
+    var pImgUrl = sessionStorage.getItem('image_url');
+    var pDes = sessionStorage.getItem('description');
+
+    document.getElementById("pName").innerHTML = pName;
+    var image = document.getElementById("pImage");
+    image.src = pImgUrl;
+    document.getElementById("pDes").innerHTML = pDes;
 </script>
 
 </body>
