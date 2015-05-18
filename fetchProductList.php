@@ -45,7 +45,7 @@
         public $image_url = "";
     }
     //first product
-    $tempPro = new myProduct();
+
 
     //iterates through all json objects to construct a more elegant JSON file
     $jsonIterator = new RecursiveIteratorIterator(
@@ -54,18 +54,15 @@
 
     foreach ($jsonIterator as $key => $val) {
         if(is_array($val)) {
-            //echo "$key:\n";
-        } else {
-            if ($pCount < 6) {
-                $pCount++;
-                $tempPro->$key = $val;
-            } else {
-                $pCount = 0;
-                $tempPro = null;
-                $tempPro = new myProduct();
-                array_push($productList, $tempPro);
-            }
-
+            $tempPro = new myProduct();
+            $tempPro->entity_id = $val['entity_id'];
+            $tempPro->sku = $val['sku'];
+            $tempPro->short_description = $val['short_description'];
+            $tempPro->description = $val['description'];
+            $tempPro->name = $val['name'];
+            $tempPro->image_url = $val['image_url'];
+            array_push($productList, $tempPro);
+            $tempPro = null;
         }
     }
     echo (json_encode($productList));

@@ -53,7 +53,7 @@
         sessionStorage.setItem('image_url', myProductList[_pID].image_url);
         sessionStorage.setItem('name', myProductList[_pID].name);
         sessionStorage.setItem('description', myProductList[_pID].description);
-
+        sessionStorage.setItem('entity_id', myProductList[_pID].entity_id);
 
         //document.write( myProductList[_pID].name);
     }
@@ -61,7 +61,7 @@
 
     $(document).ready(function(){
         /* call the php that has the php array which is json_encoded */
-        $.getJSON('main.php', function(data) {
+        $.getJSON('fetchProductList.php', function(data) {
 
             /* data will hold the php array as a javascript object */
             $.each(data, function(key, val) {
@@ -78,7 +78,7 @@
                 myProductData.name = val.name;
                 myProductData.description = val.description;
                 */
-                myProductList.push ({"image_url":val.image_url, "name":val.name, "description":val.description});
+                myProductList.push ({"image_url":val.image_url, "name":val.name, "description":val.description, "entity_id":val.entity_id});
                 myProCount = myProCount + 1;
                 /*
                 $('ul').append('<li id="' + key + '">'+

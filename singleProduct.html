@@ -12,16 +12,28 @@
         <h2 id = "pName"></h2>
         <img src="holder.png" id = "pImage">
         <p id = "pDes"></p>
+        <a href= "#" onClick="parseEntity()">
+            <h1>Buy Now</h1>
+        </a>
     </div>
 <script>
     var pName = sessionStorage.getItem('name');
     var pImgUrl = sessionStorage.getItem('image_url');
     var pDes = sessionStorage.getItem('description');
+    var pEntity = sessionStorage.getItem ('entity_id');
 
-    document.getElementById("pName").innerHTML = pName;
+    document.getElementById("pName").innerHTML = pName + pEntity;
     var image = document.getElementById("pImage");
     image.src = pImgUrl;
     document.getElementById("pDes").innerHTML = pDes;
+
+    function parseEntity () {
+        //  https://www.tatcha.com/shop/index.php/catalog/product/view/id/2/s/one-step-camellia-cleansing-oil/
+        var location = "https://www.tatcha.com/shop/index.php/catalog/product/view/id/" +
+                pEntity + "/s/" + pName.replace(/\s/g, "-");
+        window.open (location);
+    }
+
 </script>
 
 </body>

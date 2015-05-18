@@ -1,4 +1,18 @@
+h1 {
+    color:#6910EE;
+    text-transform: uppercase;
+}
+h2 {
+    font-size: 40px;
+    text-transform: uppercase;
+}
+
 img {
-    width:400px;
-    height:400px;
+    padding-left: 50px;
+    width:800px;
+    height:800px;
+}
+
+p {
+    font-size: 25px;
 }
