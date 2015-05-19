@@ -1,3 +1,7 @@
+.jumbotron img {
+    width:100%;
+}
+
 .jumbotron h1 {
     color:#6910EE;
     text-transform: uppercase;
@@ -7,6 +11,13 @@
     color:#6910EE;
     font-size: 30px;
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: top;
+    float: none;
+}
+
 /*This is used to prevent the bootStrap grid from messing up */
 .col-md-4:nth-child(3n+1){
     clear: left;
@@ -25,4 +36,5 @@
 
 .row p {
     font-size: 18px;
+    text-align: justify;
 }

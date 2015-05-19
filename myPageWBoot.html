@@ -20,6 +20,7 @@
 
 <div class="container">
     <div class="jumbotron">
+        <img src="sakk.png" alt="" class="img-responsive"/>
         <h1>Awesome Beauty Products</h1>
         <p>Works perfectly for all types of skin</p>
     </div>
@@ -65,7 +66,7 @@
 
             /* data will hold the php array as a javascript object */
             $.each(data, function(key, val) {
-                mDiv.innerHTML += "<div class='col-md-4'>"+
+                mDiv.innerHTML += "<div class='col-md-4 vcenter'>"+
                 "<a href = 'singleProduct.html'" + "id=" + myProCount + " onClick='pVToHTML(this.id)'>"+
                     "<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'>"+
                     "<h3>"+val.name+"</h3>"+
