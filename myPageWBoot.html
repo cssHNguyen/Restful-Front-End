@@ -5,16 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!--Using aJax to fetch data from PHP -->
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js'></script>
     <link href="myPageWBoot.css" rel="stylesheet"/>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/3-col-portfolio.css" rel="stylesheet">
+    <!--To use lazyload-->
+    <script src="jquery.lazyload.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -55,46 +52,31 @@
         sessionStorage.setItem('name', myProductList[_pID].name);
         sessionStorage.setItem('description', myProductList[_pID].description);
         sessionStorage.setItem('entity_id', myProductList[_pID].entity_id);
-
-        //document.write( myProductList[_pID].name);
     }
-    //sessionStorage.setItem('label', 'Hello World!')
-
+    //Fetching data from PHP that got its data from REST
     $(document).ready(function(){
         /* call the php that has the php array which is json_encoded */
         $.getJSON('fetchProductList.php', function(data) {
-
             /* data will hold the php array as a javascript object */
             $.each(data, function(key, val) {
                 mDiv.innerHTML += "<div class='col-md-4 vcenter'>"+
                 "<a href = 'singleProduct.html'" + "id=" + myProCount + " onClick='pVToHTML(this.id)'>"+
-                    "<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'>"+
+                    //"<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'/>"+
+                    "<img class='lazy' data-original="+val.image_url+">"+
                     "<h3>"+val.name+"</h3>"+
                 "</a>"+
                 "<p>"+val.short_description+"</p>"+
                 "</div>";
+                $("img.lazy").lazyload();
                 //Sets data to locally, so we can use later
-                /*
-                myProductData.image_url = val.image_url;
-                myProductData.name = val.name;
-                myProductData.description = val.description;
-                */
                 myProductList.push ({"image_url":val.image_url, "name":val.name, "description":val.description, "entity_id":val.entity_id});
                 myProCount = myProCount + 1;
-                /*
-                $('ul').append('<li id="' + key + '">'+
-                '<img src="'+val.image_url+'">'+
-                "<h2>"+val.name+"</h2>"+
-                "<p>"+val.short_description+"</p>"+
-                '</li><br>');*/
             });
         });
     });
-
     //Used to check the loading time
     jQuery(window).load(function () {
     });
-
 </script>
 </body>
 </html>
