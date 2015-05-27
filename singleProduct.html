@@ -2,13 +2,31 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href="singleProduct.css" rel="stylesheet"/>
 </head>
 <body>
+
+    <div class ="container">
+        <a href="myPageWBoot.html"><h1>Back</h1></a>
+        <div class="row">
+            <div class="row-sm-4">
+                <img src="holder.png" id = "pImage">
+            </div>
+            <div class="row-sm-4">
+                <h2 id = "pName"></h2>
+                <p id = "pDes"></p>
+                <a href= "#" onClick="parseEntity()">
+                    <h1>Buy Now</h1>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--
     <div class = "sinProd">
-        <a href="myPageWBoot.html">
-            <h1>Back</h1>
-        </a>
+        <a href="myPageWBoot.html"><h1>Back</h1></a>
         <h2 id = "pName"></h2>
         <img src="holder.png" id = "pImage">
         <p id = "pDes"></p>
@@ -16,15 +34,23 @@
             <h1>Buy Now</h1>
         </a>
     </div>
+    -->
+
+
 <script>
     var pName = sessionStorage.getItem('name');
     var pImgUrl = sessionStorage.getItem('image_url');
     var pDes = sessionStorage.getItem('description');
     var pEntity = sessionStorage.getItem ('entity_id');
 
-    document.getElementById("pName").innerHTML = pName + pEntity;
+    document.getElementById("pName").innerHTML = pName;
     var image = document.getElementById("pImage");
     image.src = pImgUrl;
+
+    //Some item description contain item links, so it will need to be changed
+    var hRefLocation = pDes.search("/ingredients");
+    pDes = [pDes.slice(0, hRefLocation), "http://www.tatcha.com/heritage", pDes.slice(hRefLocation)].join('');
+
     document.getElementById("pDes").innerHTML = pDes;
 
     function parseEntity () {
@@ -33,7 +59,6 @@
                 pEntity + "/s/" + pName.replace(/\s/g, "-");
         window.open (location);
     }
-
 </script>
 
 </body>

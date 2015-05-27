@@ -3,14 +3,14 @@ h1 {
     text-transform: uppercase;
 }
 h2 {
-    font-size: 40px;
+    font-size: 30px;
     text-transform: uppercase;
 }
 
 img {
-    padding-left: 50px;
-    width:800px;
-    height:800px;
+    float: left;
+    width:600px;
+    height:600px;
 }
 
 p {
