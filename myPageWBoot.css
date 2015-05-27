@@ -12,6 +12,11 @@
     font-size: 30px;
 }
 
+.jumbotron select {
+    color:#6910EE;
+    font-size: 30px;
+}
+
 .vcenter {
     display: inline-block;
     vertical-align: top;

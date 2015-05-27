@@ -16,11 +16,20 @@
 <body>
 
 <div class="container">
+    <!--Defines the jumbotron: header, image and page select-->
     <div class="jumbotron">
         <img src="sakk.png" alt="" class="img-responsive"/>
         <h1>Awesome Beauty Products</h1>
         <p>Works perfectly for all types of skin</p>
+        <p>Item per page:
+            <select onChange="reloadPage(this.value)">
+                <option value=12>12</option>
+                <option value=18>18</option>
+                <option value=24>24</option>
+            </select>
+        </p>
     </div>
+    <!--Allows for dynamic page allocation.-->
     <div class="row" id = "mRow">
         <!-- will be dynamically added to
         <div class="col-sm-4">
@@ -38,6 +47,9 @@
     //Variable to check loading time
     var d = new Date();
     var startTime = d.getTime();
+    var currentPage = 1;
+    var currentLimit = 12;
+    var addOffSet = 0;
 
     //get div to be appended to
     var mDiv = document.getElementById("mRow");
@@ -53,17 +65,48 @@
         sessionStorage.setItem('description', myProductList[_pID].description);
         sessionStorage.setItem('entity_id', myProductList[_pID].entity_id);
     }
-    //Fetching data from PHP that got its data from REST
-    $(document).ready(function(){
-        /* call the php that has the php array which is json_encoded */
-        $.getJSON('fetchProductList.php', function(data) {
-            /* data will hold the php array as a javascript object */
-            $.each(data, function(key, val) {
-                mDiv.innerHTML += "<div class='col-md-4 vcenter'>"+
-                "<a href = 'singleProduct.html'" + "id=" + myProCount + " onClick='pVToHTML(this.id)'>"+
-                    //"<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'/>"+
+    //Change the page according to under needs
+    function reloadPage (limit) {
+        if (limit > currentLimit) {
+            addOffSet = limit - currentLimit;
+            currentLimit = limit;
+            $.getJSON('fetchProductList.php',{page : currentPage, limit: currentLimit, offSet: addOffSet} ,function(data) {
+                /* data will hold the php array as a javascript object */
+                $.each(data, function(key, val) {
+                    mDiv.innerHTML += "<div class='col-md-4 center'>"+
+                    "<a href = 'singleProduct.html'" + "id=" + myProCount + " onClick='pVToHTML(this.id)'>"+
+                        //"<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'/>"+
                     "<img class='lazy' data-original="+val.image_url+">"+
                     "<h3>"+val.name+"</h3>"+
+                    "</a>"+
+                    "<p>"+val.short_description+"</p>"+
+                    "</div>";
+                    $("img.lazy").lazyload();
+                    //Sets data to locally, so we can use later
+                    myProductList.push ({"image_url":val.image_url, "name":val.name, "description":val.description, "entity_id":val.entity_id});
+                    myProCount = myProCount + 1;
+                });
+            });
+        } else if (limit < currentLimit) {
+            var oldLimit = currentLimit;
+            currentLimit = limit;
+            for (i = oldLimit; i> currentLimit; i--) {
+                var myList = document.getElementById(i);
+                myList.innerHTML = '';
+            }
+
+        }
+    }
+    //Fetching data from PHP that got its data from REST
+    $(document).ready(function(){
+        $.getJSON('fetchProductList.php',{page : currentPage, limit: 12, offSet: 0} ,function(data) {
+            /* data will hold the php array as a javascript object */
+            $.each(data, function(key, val) {
+                mDiv.innerHTML += "<div class='col-md-4 center'>"+
+                "<a href = 'singleProduct.html'" + "id=" + myProCount + " onClick='pVToHTML(this.id)'>"+
+                    //"<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'/>"+
+                "<img class='lazy' data-original="+val.image_url+">"+
+                "<h3>"+val.name+"</h3>"+
                 "</a>"+
                 "<p>"+val.short_description+"</p>"+
                 "</div>";

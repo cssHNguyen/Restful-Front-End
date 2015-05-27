@@ -4,7 +4,13 @@
      * Tatcha Code Challenge
      */
 
-    $endpoint = 'http://api.tatcha.com/shop/api/rest/products/';
+
+    $page = $_GET["page"];
+    $limit = $_GET["limit"];
+    $offSet = $_GET["offSet"];
+
+    //Took awhile here, because I forgot that PHP concat is . instead of +
+    $endpoint = "http://api.tatcha.com/shop/api/rest/products/?page=".$page."&limit=".$limit;
 
     //  Initiate curl
     $ch = curl_init();
@@ -52,18 +58,40 @@
         new RecursiveArrayIterator(json_decode($result, TRUE)),
         RecursiveIteratorIterator::SELF_FIRST);
 
+
+
+    $currentItem = 1;
+
+
     foreach ($jsonIterator as $key => $val) {
-        if(is_array($val)) {
-            $tempPro = new myProduct();
-            $tempPro->entity_id = $val['entity_id'];
-            $tempPro->sku = $val['sku'];
-            $tempPro->short_description = $val['short_description'];
-            $tempPro->description = $val['description'];
-            $tempPro->name = $val['name'];
-            $tempPro->image_url = $val['image_url'];
-            array_push($productList, $tempPro);
-            $tempPro = null;
+        if ($offSet > 0 and $currentItem > ($limit - $offSet)) {
+            if(is_array($val)) {
+                $tempPro = new myProduct();
+                $tempPro->entity_id = $val['entity_id'];
+                $tempPro->sku = $val['sku'];
+                $tempPro->short_description = $val['short_description'];
+                $tempPro->description = $val['description'];
+                $tempPro->name = $val['name'];
+                $tempPro->image_url = $val['image_url'];
+                array_push($productList, $tempPro);
+                $tempPro = null;
+            }
+        } else if ($offSet == 0) {
+            if(is_array($val)) {
+                $tempPro = new myProduct();
+                $tempPro->entity_id = $val['entity_id'];
+                $tempPro->sku = $val['sku'];
+                $tempPro->short_description = $val['short_description'];
+                $tempPro->description = $val['description'];
+                $tempPro->name = $val['name'];
+                $tempPro->image_url = $val['image_url'];
+                array_push($productList, $tempPro);
+                $tempPro = null;
+            }
+        } else if (is_array($val)) {
+            $currentItem++;
         }
+
     }
     echo (json_encode($productList));
 ?>
