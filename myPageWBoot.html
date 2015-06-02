@@ -73,8 +73,8 @@
             $.getJSON('fetchProductList.php',{page : currentPage, limit: currentLimit, offSet: addOffSet} ,function(data) {
                 /* data will hold the php array as a javascript object */
                 $.each(data, function(key, val) {
-                    mDiv.innerHTML += "<div class='col-md-4 center'>"+
-                    "<a href = 'singleProduct.html'" + "id=" + myProCount + " onClick='pVToHTML(this.id)'>"+
+                    mDiv.innerHTML += "<div class='col-md-4 center' " + "id=" + myProCount + ">"+
+                    "<a href = 'singleProduct.html' onClick='pVToHTML(this.id)'>"+
                         //"<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'/>"+
                     "<img class='lazy' data-original="+val.image_url+">"+
                     "<h3>"+val.name+"</h3>"+
@@ -90,7 +90,7 @@
         } else if (limit < currentLimit) {
             var oldLimit = currentLimit;
             currentLimit = limit;
-            for (i = oldLimit; i> currentLimit; i--) {
+            for (i = oldLimit-1; i>= currentLimit; i--) {
                 var myList = document.getElementById(i);
                 myList.innerHTML = '';
             }
@@ -102,8 +102,8 @@
         $.getJSON('fetchProductList.php',{page : currentPage, limit: 12, offSet: 0} ,function(data) {
             /* data will hold the php array as a javascript object */
             $.each(data, function(key, val) {
-                mDiv.innerHTML += "<div class='col-md-4 center'>"+
-                "<a href = 'singleProduct.html'" + "id=" + myProCount + " onClick='pVToHTML(this.id)'>"+
+                mDiv.innerHTML += "<div class='col-md-4 center' " + "id=" + myProCount + ">"+
+                "<a href = 'singleProduct.html' onClick='pVToHTML(this.id)'>"+
                     //"<img src ="+val.image_url+" class='img-responsive' alt='Cinque Terre'/>"+
                 "<img class='lazy' data-original="+val.image_url+">"+
                 "<h3>"+val.name+"</h3>"+
